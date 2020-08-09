@@ -1,5 +1,6 @@
 module.exports = {
     home:{
+        start: "/start",
         phone: "ТЕЛЕФОН",
         shop: "МАГАЗИН"
     },

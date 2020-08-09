@@ -10,6 +10,12 @@ const bot = new Bot(cf.TOKEN, {
 bot.on("message", msg => {
     const id = msg.chat.id;
     switch(msg.text){
+        case kb.home.start:
+            bot.sendMessage(id, `Привет ${msg.from.first_name}`, {
+                reply_markup:{keyboard: keyboard.home}
+            });
+        break;
+
         case kb.home.phone:
             bot.sendMessage(id, "ВЫ В ТЕЛЕФОНЕ:", {
                 reply_markup:{keyboard: keyboard.phone}
@@ -28,12 +34,4 @@ bot.on("message", msg => {
             });
         break;
     }
-});
-
-bot.onText(/\/start/, msg => {
-    bot.sendMessage(msg.chat.id, `Привет ${msg.from.first_name}`, {
-        reply_markup:{
-            keyboard: keyboard.home
-        }
-    });
 });
