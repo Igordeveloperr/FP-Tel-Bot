@@ -1,19 +1,18 @@
 const DataBase = require("../Db")
 
-module.exports = class News {
-    #db = new DataBase()
-    #conn = this.#db.dbConnect()
-    constructor(){
-        this._newsArgs = []
-    }
-
-    getNews(bot, id){
-        this.#conn.query("SELECT * FROM `news`", (err, res, field) => {
-            if(err){throw err}
-            for(let i of res){
-                bot.sendMessage(id, i["body"])
-            }
-        })   
-    }
+const db = new DataBase()
+const conn = db.dbConnect()
+let count = 0
+module.exports = function test(bot, id){
+    conn.query("SELECT * FROM `news`", (err, res, fil) => {
+        if(err){throw err}
+        if(count !== 2){
+            bot.sendMessage(id, res[count]["body"])
+            count++
+        }
+        else{
+            bot.sendMessage(id, "На сегодня посты закончились")
+            setInterval(() => count = 0, 3000)
+        }
+    })
 }
-
